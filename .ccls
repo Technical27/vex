@@ -1,0 +1,3 @@
+%cpp -std=gnu++17
+%c -std=gnu11
+-Iinclude
