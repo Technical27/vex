@@ -2,7 +2,7 @@
 
 class DisplayManager {
 public:
-  DisplayManager() = default;
+  DisplayManager();
   DisplayManager(DisplayManager &&) = default;
   DisplayManager(const DisplayManager &) = default;
   DisplayManager &operator=(DisplayManager &&) = default;
@@ -10,11 +10,15 @@ public:
   ~DisplayManager();
 
   void updateLabels(float left, float right);
-  void initDisplay();
 
 private:
   lv_obj_t *controllerLeftLabel;
   lv_obj_t *controllerRightLabel;
+
+  lv_obj_t *controllerLeftGauge;
+  lv_obj_t *controllerRightGauge;
+
+  lv_obj_t *mainLabel;
 
   char leftLabelText[32];
   char rightLabelText[32];

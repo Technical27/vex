@@ -5,6 +5,8 @@
 using namespace okapi;
 
 extern std::shared_ptr<ChassisController> chassis;
+extern Motor liftMotor;
+
 extern Controller controller;
 
 #include "display.hpp"
@@ -13,10 +15,14 @@ extern Controller controller;
 
 std::shared_ptr<ChassisController> chassis =
     ChassisControllerBuilder()
-        .withMotors({-2, -4, -6}, {1, 3, 5})
+        .withMotors({-4, -2}, {3, 1})
         .withDimensions(AbstractMotor::gearset::green,
                         {{4_in, 11.5_in}, imev5GreenTPR})
         .build();
+
+Motor liftMotor(11, true, AbstractMotor::gearset::red,
+                AbstractMotor::encoderUnits::degrees);
+
 Controller controller(ControllerId::master);
 
 #endif // COMMON_DEFINE
