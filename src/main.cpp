@@ -13,22 +13,31 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-  /* std::shared_ptr<XDriveModel> model = */
-  /*     std::dynamic_pointer_cast<XDriveModel,
-   * ChassisModel>(chassis->getModel()); */
+  double maxVelocity = chassis->getMaxVelocity();
+  // slow down everything
+  chassis->setMaxVelocity(50);
 
-  // push the mobile goal
-  liftMotor.moveRelative(-1000, -6000);
-  /* pros::delay(3000); */
-  /* chassis->moveRaw(20000); */
+  // move forward and drop the lift
+  chassis->moveRaw(2150);
+  liftMotor.moveRelative(-700, -6000);
+  pros::delay(2000);
 
-  /* chassis->moveRaw(-4500); */
+  // move back and have the ring catch on the edge
+  chassis->moveRaw(-900);
 
-  /* model->strafe(-1); */
-  /* pros::delay(500); */
-  /* model->stop(); */
+  // put lift down fully
+  liftMotor.moveRelative(-200, -6000);
+  pros::delay(1000);
 
-  /* liftMotor.moveRelative(-1000, -6000); */
+  // turn left, move forward, turn right and push the mobile goal
+  chassis->turnRaw(200);
+  chassis->moveRaw(1400);
+  chassis->turnRaw(-1000);
+  chassis->moveRaw(800);
+
+  // restore max velocity
+  chassis->setMaxVelocity(maxVelocity);
+  /* chassis->moveRaw(-200); */
 }
 
 void opcontrol() {
