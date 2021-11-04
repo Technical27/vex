@@ -23,6 +23,9 @@ std::shared_ptr<ChassisController> chassis =
 Motor liftMotor(11, true, AbstractMotor::gearset::red,
                 AbstractMotor::encoderUnits::degrees);
 
+std::shared_ptr<AsyncPositionController<double, double>> liftController =
+    AsyncPosControllerBuilder().withMotor(liftMotor).build();
+
 Controller controller(ControllerId::master);
 
 #endif // COMMON_DEFINE

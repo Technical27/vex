@@ -6,6 +6,7 @@ std::shared_ptr<DisplayManager> displayManager;
 void initialize() {
   displayManager = std::make_shared<DisplayManager>(DisplayManager());
   liftMotor.setBrakeMode(AbstractMotor::brakeMode::hold);
+  liftController->tarePosition();
 }
 
 void disabled() {}
@@ -13,31 +14,34 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-  double maxVelocity = chassis->getMaxVelocity();
   // slow down everything
-  chassis->setMaxVelocity(50);
+  /* chassis->setMaxVelocity(80); */
+  /* liftController->setMaxVelocity(100); */
+  /* chassis->getModel()->resetSensors(); */
+  /* liftController->tarePosition(); */
 
   // move forward and drop the lift
-  chassis->moveRaw(2150);
-  liftMotor.moveRelative(-700, -6000);
-  pros::delay(2000);
+  /* chassis->moveRaw(2050); */
+  /* liftController->setTarget(-700); */
+  /* liftController->waitUntilSettled(); */
 
   // move back and have the ring catch on the edge
-  chassis->moveRaw(-900);
+  /* chassis->moveRaw(-900); */
 
   // put lift down fully
-  liftMotor.moveRelative(-200, -6000);
-  pros::delay(1000);
+  liftController->setTarget(-900);
 
   // turn left, move forward, turn right and push the mobile goal
-  chassis->turnRaw(200);
-  chassis->moveRaw(1400);
-  chassis->turnRaw(-1000);
-  chassis->moveRaw(800);
+  /* chassis->turnRaw(200); */
+  /* liftController->waitUntilSettled(); */
+  /* chassis->moveRaw(1200); */
+  /* chassis->turnRaw(500); */
+  /* chassis->moveRaw(200); */
+  /* chassis->moveRaw(-1000); */
 
   // restore max velocity
-  chassis->setMaxVelocity(maxVelocity);
-  /* chassis->moveRaw(-200); */
+  /* chassis->setMaxVelocity(600); */
+  /* liftController->setMaxVelocity(600); */
 }
 
 void opcontrol() {
