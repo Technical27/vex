@@ -1,4 +1,5 @@
 #include "main.h"
+#include "util.hpp"
 
 class DisplayManager {
 public:

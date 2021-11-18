@@ -4,8 +4,11 @@
 std::shared_ptr<DisplayManager> displayManager;
 
 void initialize() {
+  util::logger();
   displayManager = std::make_shared<DisplayManager>(DisplayManager());
   liftMotor.setBrakeMode(AbstractMotor::brakeMode::hold);
+  liftMotor.setGearing(AbstractMotor::gearset::red);
+  liftMotor.setEncoderUnits(AbstractMotor::encoderUnits::degrees);
   liftController->tarePosition();
 }
 
@@ -14,40 +17,11 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() {
-  // slow down everything
-  /* chassis->setMaxVelocity(80); */
-  /* liftController->setMaxVelocity(100); */
-  /* chassis->getModel()->resetSensors(); */
-  /* liftController->tarePosition(); */
-
-  // move forward and drop the lift
-  /* chassis->moveRaw(2050); */
-  /* liftController->setTarget(-700); */
-  /* liftController->waitUntilSettled(); */
-
-  // move back and have the ring catch on the edge
-  /* chassis->moveRaw(-900); */
-
-  // put lift down fully
-  liftController->setTarget(-900);
-
-  // turn left, move forward, turn right and push the mobile goal
-  /* chassis->turnRaw(200); */
-  /* liftController->waitUntilSettled(); */
-  /* chassis->moveRaw(1200); */
-  /* chassis->turnRaw(500); */
-  /* chassis->moveRaw(200); */
-  /* chassis->moveRaw(-1000); */
-
-  // restore max velocity
-  /* chassis->setMaxVelocity(600); */
-  /* liftController->setMaxVelocity(600); */
+  // Just put down the lift for now
+  liftController->setTarget(-800);
 }
 
 void opcontrol() {
-  /* std::shared_ptr<XDriveModel> model = */
-  /*     std::dynamic_pointer_cast<XDriveModel,
-   * ChassisModel>(chassis->getModel()); */
   std::shared_ptr<ChassisModel> model = chassis->getModel();
 
   while (true) {
@@ -56,7 +30,8 @@ void opcontrol() {
 
     model->tank(leftY, rightY);
 
-    displayManager->updateLabels(leftY, rightY);
+    // testing pneumatics
+    piston.set_value(controller.getDigital(ControllerDigital::R1));
 
     if (controller.getDigital(ControllerDigital::L2)) {
       // move lift down
@@ -67,12 +42,6 @@ void opcontrol() {
     } else {
       liftMotor.moveVoltage(0);
     }
-
-    /* if (controller.getDigital(ControllerDigital::left)) { */
-    /*   model->strafe(1); */
-    /* } else if (controller.getDigital(ControllerDigital::right)) { */
-    /*   model->strafe(-1); */
-    /* } */
 
     pros::delay(20);
   }
