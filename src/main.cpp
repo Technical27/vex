@@ -1,5 +1,4 @@
-#define COMMON_DEFINE
-#include "common.hpp"
+#include "main.hpp"
 
 std::shared_ptr<DisplayManager> displayManager;
 
@@ -18,7 +17,7 @@ void competition_initialize() {}
 
 void autonomous() {
   // Just put down the lift for now
-  liftController->setTarget(-800);
+  liftController->setTarget(LIFT_TARGET_DOWN);
 }
 
 void opcontrol() {
@@ -29,9 +28,6 @@ void opcontrol() {
     float rightY = controller.getAnalog(ControllerAnalog::rightY);
 
     model->tank(leftY, rightY);
-
-    // testing pneumatics
-    piston.set_value(controller.getDigital(ControllerDigital::R1));
 
     if (controller.getDigital(ControllerDigital::L2)) {
       // move lift down
