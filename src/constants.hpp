@@ -17,3 +17,5 @@
 #define WHEEL_DIAMETER 4_in
 // TODO: this is a default value, actually put in something here
 #define TRACK_WIDTH 11.5_in
+
+#define MOTOR_MAX_VOLTAGE 12000

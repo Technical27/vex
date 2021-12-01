@@ -22,6 +22,7 @@ void autonomous() {
 
 void opcontrol() {
   std::shared_ptr<ChassisModel> model = chassis->getModel();
+  std::uint32_t liftSpeed = MOTOR_MAX_VOLTAGE / 2;
 
   while (true) {
     float leftY = controller.getAnalog(ControllerAnalog::leftY);
@@ -31,10 +32,10 @@ void opcontrol() {
 
     if (controller.getDigital(ControllerDigital::L2)) {
       // move lift down
-      liftMotor.moveVoltage(-6000);
+      liftMotor.moveVoltage(-liftSpeed);
     } else if (controller.getDigital(ControllerDigital::L1)) {
       // move lift up
-      liftMotor.moveVoltage(6000);
+      liftMotor.moveVoltage(liftSpeed);
     } else {
       liftMotor.moveVoltage(0);
     }
