@@ -28,7 +28,11 @@ void opcontrol() {
     float leftY = controller.getAnalog(ControllerAnalog::leftY);
     float rightY = controller.getAnalog(ControllerAnalog::rightY);
 
-    model->tank(leftY, rightY);
+    if (controller.getDigital(ControllerDigital::R2)) {
+      model->tank(leftY * 0.5, rightY * 0.5);
+    } else {
+      model->tank(leftY, rightY);
+    }
 
     if (controller.getDigital(ControllerDigital::L2)) {
       // move lift down
