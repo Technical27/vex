@@ -9,12 +9,20 @@ std::shared_ptr<ChassisController> chassis =
                         {{WHEEL_DIAMETER, TRACK_WIDTH}, imev5GreenTPR})
         .build();
 
-MotorGroup liftMotor({
-    RIGHT_LIFT_MOTOR,
-    LEFT_LIFT_MOTOR,
+MotorGroup mainLift({
+    RIGHT_MAIN_LIFT_MOTOR,
+    LEFT_MAIN_LIFT_MOTOR,
 });
 
-std::shared_ptr<AsyncPositionController<double, double>> liftController =
-    AsyncPosControllerBuilder().withMotor(liftMotor).build();
+MotorGroup auxLift({
+    RIGHT_AUX_LIFT_MOTOR,
+    LEFT_AUX_LIFT_MOTOR,
+});
+
+std::shared_ptr<AsyncPositionController<double, double>> mainLiftController =
+    AsyncPosControllerBuilder().withMotor(mainLift).build();
+
+std::shared_ptr<AsyncPositionController<double, double>> auxLiftController =
+    AsyncPosControllerBuilder().withMotor(auxLift).build();
 
 Controller controller(ControllerId::master);

@@ -7,12 +7,15 @@
 #define FRONT_RIGHT_MOTOR 1
 #define BACK_RIGHT_MOTOR 3
 
-#define RIGHT_LIFT_MOTOR -11
-#define LEFT_LIFT_MOTOR 12
+#define RIGHT_MAIN_LIFT_MOTOR -11
+#define LEFT_MAIN_LIFT_MOTOR 12
+
+#define RIGHT_AUX_LIFT_MOTOR -6
+#define LEFT_AUX_LIFT_MOTOR 7
 
 // General constants
 
-#define LIFT_TARGET_DOWN -800
+#define MAIN_LIFT_TARGET_DOWN -800
 
 #define WHEEL_DIAMETER 4_in
 // TODO: this is a default value, actually put in something here
